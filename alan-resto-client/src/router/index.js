@@ -21,6 +21,11 @@ const router = createRouter({
         path: '/food/addmenu',
         name: 'addmenu',
         component: AddMenu
+      },
+      {
+        path: '/:id',
+        name: 'addTransaction',
+        component: Transaction
       }
     ]
   })
