@@ -15,6 +15,6 @@ pinia.use(({store}) => {
 app.use(pinia)
 app.use(router)
 
-app.provide("baseUrl", "http://localhost:3000");
+app.provide("baseUrl", "https://dramatic-carpenter-production.up.railway.app");
 
 app.mount('#app')
