@@ -4,7 +4,8 @@ import axios from 'axios'
 export const useCounterStore = defineStore('counter', {
     state(){
         return {  
-          baseUrl: `https://dramatic-carpenter-production.up.railway.app`,
+        //   baseUrl: `https://dramatic-carpenter-production.up.railway.app`,
+          baseUrl: `http://localhost:3000`,
           food: [],
           trans: [],
         }

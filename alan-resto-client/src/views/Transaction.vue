@@ -16,7 +16,8 @@
             return useCounterStore().transLength;
         },
         chargeBill() {
-          return 10000 * this.transLength;
+          let charge = 10000 * this.transLength
+          return charge.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })
         }
       },
       watch: {
@@ -41,7 +42,27 @@
           })
         },
         handlePrintBill(){
-          window.print()
+          // Generate the bill summary
+          let grandTotal = 0
+          let billSummary = 'Bill Summary:\n\n';
+          for (const transaction of this.trans) {
+            const { nama, amount, harga } = transaction;
+            const totalPrice = amount * harga;            
+            billSummary += `Product: ${nama}\n`;
+            billSummary += `Amount: ${amount}\n`;
+            billSummary += `Price: ${harga.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}\n`;
+            billSummary += `Total: ${totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}\n\n`;
+            grandTotal += totalPrice
+          }
+
+          billSummary += `Grand Total: ${grandTotal.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}`
+
+          // Print the bill summary
+          const printWindow = window.open('', '', 'width=700,height=600');
+          printWindow.document.open();
+          printWindow.document.write(`<pre>${billSummary}</pre>`);
+          printWindow.document.close();
+          printWindow.print();
         }
       },
       data() {
@@ -53,7 +74,7 @@
       },
       mounted(){
         this.fetchFood()
-        this.fetchTransaction()
+        this.fetchTransaction()        
       }
   }
 
@@ -83,7 +104,7 @@
             </div>
             <div class="flex">
               <h2 class="my-auto mr-5">x{{ transaction.amount }}</h2>
-              <h2 class="text-sky-500 font-medium my-auto">Rp. {{ transaction.harga }}</h2>
+              <h2 class="text-sky-500 font-medium my-auto">{{ transaction.harga_x_amount.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }) }}</h2>
             </div>
           </div>
 
@@ -98,7 +119,7 @@
             </div>
   
             <div class="mx-9 my-3">
-              <button @click="showModal = true" class="text-white font-semibold bg-sky-500 hover:bg-sky-400 rounded-sm p-2 w-full">Charge Rp. {{ chargeBill }}</button>
+              <button @click="showModal = true" class="text-white font-semibold bg-sky-500 hover:bg-sky-400 rounded-sm p-2 w-full">Charge {{ chargeBill }}</button>
               <Modal v-if="showModal" @close="showModal = false" :title="modalTitle" :content="modalContent" />
             </div>
           </div>          
