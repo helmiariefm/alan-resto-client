@@ -42,7 +42,6 @@
           })
         },
         handlePrintBill(){
-          // Generate the bill summary
           let grandTotal = 0
           let billSummary = 'Bill Summary:\n\n';
           for (const transaction of this.trans) {
@@ -54,14 +53,20 @@
             billSummary += `Total: ${totalPrice.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}\n\n`;
             grandTotal += totalPrice
           }
+          
+          const charge = 10000 * this.transLength;
+          billSummary += `Charge: ${charge.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}\n`
 
+          grandTotal += charge;
           billSummary += `Grand Total: ${grandTotal.toLocaleString('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 })}`
-
-          // Print the bill summary
+          
           const printWindow = window.open('', '', 'width=700,height=600');
           printWindow.document.open();
           printWindow.document.write(`<pre>${billSummary}</pre>`);
           printWindow.document.close();
+          printWindow.onload = function() {
+            printWindow.print();
+          };          
           printWindow.print();
         }
       },
@@ -128,3 +133,15 @@
       </div>
     </div>
 </template>
+
+<style>
+  @media print {
+    @page {
+      size: A6;
+      -moz-page-size: A6; /* Firefox */
+      -webkit-print-color-adjust: exact; /* Chrome, Safari, Edge, Opera */
+      -o-page-size: A6; /* Opera */
+      -ms-page-size: A6; /* Microsoft Edge */
+    }
+  }
+</style>

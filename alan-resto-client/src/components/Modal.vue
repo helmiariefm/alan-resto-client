@@ -13,10 +13,10 @@
                 return useCounterStore().transLength;
             },
             chargeBill() {
-                const hargaSum = this.trans.reduce((total, transItem) => total + transItem.harga, 0);
+                const hargaSum = this.trans.reduce((total, transItem) => total + transItem.harga_x_amount, 0);
                 return (10000 * this.transLength) + hargaSum;
             },
-            kembalian() {
+            kembalian() {                
                 return this.inputValue ? this.inputValue - this.chargeBill : 0;
             }
         },
@@ -31,6 +31,9 @@
         mounted(){
             this.fetchFood()
             this.fetchTransaction()
+        },
+        created(){
+            console.log(this.chargeBill, "<<<<")
         }
     }
 </script>

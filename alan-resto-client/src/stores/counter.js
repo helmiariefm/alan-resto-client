@@ -4,10 +4,10 @@ import axios from 'axios'
 export const useCounterStore = defineStore('counter', {
     state(){
         return {  
-        //   baseUrl: `https://dramatic-carpenter-production.up.railway.app`,
-          baseUrl: `http://localhost:3000`,
-          food: [],
-          trans: [],
+            // baseUrl: `http://localhost:3000`,
+            baseUrl: `https://dramatic-carpenter-production.up.railway.app`,
+            food: [],
+            trans: [],
         }
     },
     getters: {
@@ -62,9 +62,9 @@ export const useCounterStore = defineStore('counter', {
                 const existingTransaction = this.trans.find(t => t.id === data.id)
                 if (existingTransaction) {
                     existingTransaction.amount = data.amount
-                    existingTransaction.harga = data.harga
+                    existingTransaction.harga_x_amount = data.harga_x_amount
                 } else {
-                this.trans.push(data)
+                    this.trans.push(data)
                 }
                 // Clear the selected food item
                 this.food = this.food.map(f => f.id === id ? { ...f, selected: false } : f)                
