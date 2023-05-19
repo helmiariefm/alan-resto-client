@@ -9,7 +9,10 @@
         ...mapWritableState(useCounterStore, ['food']),
       },
       methods: {
-        ...mapActions(useCounterStore, ['fetchFood'])
+        ...mapActions(useCounterStore, ['fetchFood']),
+        handleImageError(foodProp) {          
+          foodProp.foto = '/brokenImg.png'
+        }
       },
       directives: {
         numeric: VueNumeric
@@ -39,7 +42,7 @@
                   <td class=" px-4 py-2">{{ foodProp.id }}</td>
                   <td class=" px-4 py-2">{{ foodProp.nama }}</td>
                   <td class=" px-4 py-2">
-                      <img :src="foodProp.foto" class="w-28 h-20"/>
+                      <img :src="foodProp.foto" @error="handleImageError(foodProp)" class="w-28 h-20"/>
                   </td>
                   <td class=" px-4 py-2">Rp. {{ foodProp.harga }}</td>
               </tr>
