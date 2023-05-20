@@ -7,27 +7,35 @@
       return {
         fileName: '',
         nama: '',
-        harga: 0
+        harga: 0,
+        file: null
       }
     },
     methods: {
       ...mapActions(useCounterStore, ['addMenu']),
-      handleAddmenu(){
-        this.addMenu({
-          nama: this.nama,
-          harga: this.harga
-        })
+      async handleAddmenu() {
+        const form = new FormData();
+        form.append('nama', this.nama);
+        form.append('harga', this.harga);
+        form.append('foto', this.file); // Append the selected file
+
+        try {
+          await this.addMenu(form);
+          this.$router.push('/food');
+        } catch (err) {
+          console.log(err);
+        }
       },
       handleFileUpload(event) {
           const files = event.target.files;
           this.fileName = files[0].name;
-          // Do something with the files, like upload them to a server
+          this.file = files[0]; // Store the selected file
       },
       handleFileDrop(event) {
           event.preventDefault();
           const files = event.dataTransfer.files;
           this.fileName = files[0].name;
-          // Do something with the files, like upload them to a server
+          this.file = files[0]; // Store the dropped file
       }
     }
   }
@@ -49,7 +57,7 @@
             @click="$refs.fileInput.click()"
           >
             <img src="../assets/upload.png" class="w-9 opacity-60 mx-auto mt-11"/>
-            <label for="fileInput" class="cursor-pointer text-zinc-400">
+            <label for="fileInput" :class="{ 'cursor-pointer text-zinc-400': !fileName, 'cursor-pointer text-emerald-500 font-semibold': fileName }">
               {{ fileName || 'drag and drop a file here or click' }}
             </label>
             <input

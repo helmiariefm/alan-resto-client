@@ -38,8 +38,8 @@
               </tr>
           </thead>
           <tbody>
-              <tr v-for="foodProp in food" :key="foodProp.id"  class="even:bg-white odd:bg-gray-100">
-                  <td class=" px-4 py-2">{{ foodProp.id }}</td>
+              <tr v-for="(foodProp, i) in food" :key="foodProp.id"  class="even:bg-white odd:bg-gray-100">
+                  <td class=" px-4 py-2">{{ i + 1 }}</td>
                   <td class=" px-4 py-2">{{ foodProp.nama }}</td>
                   <td class=" px-4 py-2">
                       <img :src="foodProp.foto" @error="handleImageError(foodProp)" class="w-28 h-20"/>
