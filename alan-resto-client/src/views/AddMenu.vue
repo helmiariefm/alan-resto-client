@@ -42,8 +42,8 @@
 </script>
 
 <template>
-    <div class="px-20 text-black mt-7">
-      <div class="w-full p-9 bg-white shadow-lg">
+    <div class="md:px-20 px-5 text-black mt-7">
+      <div class="w-full md:p-9 p-5 bg-white shadow-lg">
         <h2 class="font-semibold text-sky-400 rounded-sm py-2 mb-9">Tambahkan Menu</h2>
         <form @submit.prevent="handleAddmenu">
           <label>Nama Menu</label>

@@ -87,15 +87,13 @@
 </script>
 
 <template>
-    <div class="px-20 flex">
-      <!-- Product List -->
-      <div class="w-4/6 grid grid-cols-3">        
+    <div class="md:px-20 px-5 flex flex-col-reverse md:flex-row w-full">      
+      <div class="md:w-4/6 grid grid-cols-1 md:grid-cols-3">
         <FoodCard v-for="foodProp in food" :key="foodProp.id" :foodProp="foodProp" v-on:click="$event => handleTransaction(foodProp.id)"/>
       </div>
-
-      <!-- Bill -->
-      <div class="w-2/6">
-        <div class="bg-white w-full mr-9 mt-11 pt-7 pb-9 text-black text-center shadow-md">
+      
+      <div class="md:w-2/6">
+        <div class="bg-white w-full mr-9 mt-5 pt-7 pb-9 text-black text-center shadow-md">
           
           <div class="justify-center flex gap-2 mb-7">
             <img src="../assets/pesanan.png" class="w-9"/>

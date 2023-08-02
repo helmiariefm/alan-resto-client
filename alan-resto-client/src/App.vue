@@ -8,10 +8,7 @@
   }
 </script>
 
-<template>
-  <div>    
+<template>  
     <Navbar/>
-
-    <RouterView/>
-  </div>
+    <RouterView/>  
 </template>
